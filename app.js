@@ -14,6 +14,10 @@ const User = require("./model/user");
 // Autorithation route
 const auth = require("./middleware/auth");
 
+app.get("/", function(req, res){
+    res.sendFile(__dirname + "index.html");
+});
+
 // Register
 app.post("/register", async (req, res) => {
 
