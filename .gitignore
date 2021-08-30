@@ -11,8 +11,6 @@
 *.sln.docstates
 *.env
 .env
-index.html
-script.js
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
