@@ -15,7 +15,7 @@ const User = require("./model/user");
 const auth = require("./middleware/auth");
 
 app.get("/", function(req, res){
-    res.sendFile(__dirname + "index.html");
+    res.sendFile(__dirname + "/index.html");
 });
 
 // Register
