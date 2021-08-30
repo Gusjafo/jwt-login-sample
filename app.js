@@ -14,7 +14,7 @@ const User = require("./model/user");
 // Autorithation route
 const auth = require("./middleware/auth");
 
-app.use('./static', express.static('public'));
+app.use("/static", express.static('./static/'));
 
 app.get("/", function(req, res){
     res.sendFile(__dirname + "/index.html");
