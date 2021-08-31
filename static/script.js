@@ -41,8 +41,8 @@ function sendJSON(){
             result.innerHTML = this.responseText;
             let response = this.responseText;
             console.log("token: " + response);
-            console.log("token2: " + response.token);
-            console.log("toke: ", response.token);
+            console.log("token2: ", JSON.stringify(response));
+            console.log("toke: ", response);
 
             // if(token) {
             //     let xhrget = new XMLHttpRequest();
