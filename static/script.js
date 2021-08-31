@@ -41,15 +41,16 @@ function sendJSON(){
             result.innerHTML = this.responseText;
             let token = this.responseText.token;
             console.log("token: " + token);
+            console.log("token2: ", token);
             let toke = this.response.token;
             console.log("toke: " + toke);
 
-            if(token) {
-                let xhrget = new XMLHttpRequest();
-                xhrget.open("GET", "./welcome", true);
-                xhrget.setRequestHeader("Content-Type", "application/json");
-                xhrget.send(token);
-            }
+            // if(token) {
+            //     let xhrget = new XMLHttpRequest();
+            //     xhrget.open("GET", "./welcome", true);
+            //     xhrget.setRequestHeader("Content-Type", "application/json");
+            //     xhrget.send(token);
+            // }
 
 
 
