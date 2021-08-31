@@ -1,4 +1,4 @@
-const yourUrl = "https://jwt-login-simpletest.herokuapp.com/login";
+const yourUrl = "./login";
 
 
 // function handleSubmit(event) {
