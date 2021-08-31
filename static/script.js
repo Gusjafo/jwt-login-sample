@@ -39,11 +39,10 @@ function sendJSON(){
 
             // Print received data from server
             result.innerHTML = this.responseText;
-            let token = this.responseText.token;
-            console.log("token: " + token);
-            console.log("token2: ", token);
-            let toke = this.response.token;
-            console.log("toke: " + toke);
+            let response = this.responseText;
+            console.log("token: " + response);
+            console.log("token2: " + response.token);
+            console.log("toke: ", response.token);
 
             // if(token) {
             //     let xhrget = new XMLHttpRequest();
