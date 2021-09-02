@@ -42,15 +42,25 @@ function sendJSON(){
             let response = this.responseText;
             let responseParse = JSON.parse(response);
             
-            console.log("token2: ", responseParse.token);
-            console.log("toke: ", response);
+            // console.log("token2: ", responseParse.token);
+            // console.log("toke: ", response);
 
             if(responseParse.token) {
+
                 let xhrget = new XMLHttpRequest();
+
+                xhrget.onreadystatechange = function () {
+                    console.log(xhrget.readyState);
+                    console.log(xhrget.status);                    
+                }
+
                 xhrget.open("GET", "./welcome", true);
-                xhrget.setRequestHeader("Content-Type", "application/json");
-                let resSEND = JSON.stringify({"token": responseParse.token});
-                xhrget.send(resSEND);
+                
+                let resSEND = JSON.stringify({ "token": responseParse.token });
+                xhrget.setRequestHeader("x-access-token", responseParse.token);
+                console.log(responseParse.token);
+                xhrget.send();
+                return;
             }
 
 
@@ -61,7 +71,7 @@ function sendJSON(){
 
     // Converting JSON data to string
     var data = JSON.stringify({ "password": password.value, "email": email.value });
-    console.log("password: " + password.value + ", email: " + email.value)
+    console.log(data);
 
     // Sending data with the request
     xhr.send(data);
