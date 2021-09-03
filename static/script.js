@@ -1,4 +1,5 @@
 const yourUrl = "./login";
+document.getElementById("button").addEventListener("click", sendJSON);
 
 function sendJSON(){
 			

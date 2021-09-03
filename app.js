@@ -3,6 +3,7 @@ require("./config/database").connect();
 const express = require("express");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 
 const app = express();
 
@@ -17,7 +18,7 @@ const auth = require("./middleware/auth");
 app.use("/static", express.static('./static/'));
 
 app.get("/", function(req, res){
-    res.sendFile(__dirname + "./static/index.html");
+    res.sendFile(__dirname + "/static/index.html");
 });
 
 // Register
@@ -109,7 +110,7 @@ app.post("/login", async (req, res) => {
 
 app.get("/welcome", auth, (req, res) => {
     res.set('Content-Type', 'text/html')
-    res.status(200).send("<h1>Welcome 👁</h1>");
+    res.status(200).send("<center><h1>Welcome 👁</h1></center>");
 });
 
 // This should be the last route else any after it won't work

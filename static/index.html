@@ -11,20 +11,22 @@
 </head>
 
 <body>
-    <h2>HTML Forms</h2>
+    <center>
+        <h2>HTML Forms</h2>
 
-    <form action="" method="" target="_blank">
-        <label for="email">email:</label><br>
-        <input type="text" id="email" name="email" value="John"><br>
-        <label for="password">password:</label><br>
-        <input type="text" id="password" name="password" value="Doe"><br><br>
-        <button onclick="sendJSON()">Send JSON</button>
-    </form>
+        <form enctype="multipart/form-data">
+            <label for="email">email:</label><br>
+            <input type="text" id="email" name="email" value="John" style="text-align:center;"><br><br>
+            <label for="password">password:</label><br>
+            <input type="text" id="password" name="password" value="Doe" style="text-align:center;"><br><br>
+            <button type="button" id="button">Send JSON</button>
+        </form>
 
-    <!-- For printing result from server -->
-    <p class="result" style="color:green"></p>
+        <!-- For printing result from server -->
+        <p class="result" style="color:green"></p>
 
-    <p>If you click the "Submit" button, the form-data will be sent to a page called "/app.js".</p>
+        <p>If you click the "Submit" button, the form-data will be sent to a page called "/app.js".</p>
+    </center>
     <script src="/static/script.js"></script>
 </body>
 
