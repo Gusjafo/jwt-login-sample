@@ -67,7 +67,7 @@ app.post("/register", async (req, res) => {
 
 // Login
 app.post("/login", async (req, res) => {
-    console.log("body", req.body);
+    // console.log("body", req.body);
 
     try {
         const { email, password } = req.body;
@@ -83,7 +83,7 @@ app.post("/login", async (req, res) => {
         
 
         if (user && (await bcrypt.compare(password, user.password))) {
-            console.log(user);
+            // console.log(user);
             //create token
             const token = jwt.sign(
                 { user_id: user._id, email },
@@ -108,7 +108,8 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/welcome", auth, (req, res) => {
-    res.status(200).send("Welcome 👁");
+    res.set('Content-Type', 'text/html')
+    res.status(200).send("<h1>Welcome 👁</h1>");
 });
 
 // This should be the last route else any after it won't work

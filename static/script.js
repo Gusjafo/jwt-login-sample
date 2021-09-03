@@ -1,31 +1,13 @@
 const yourUrl = "./login";
 
-
-// function handleSubmit(event) {
-//     event.preventDefault();
-
-//     const data = new FormData(event.target);
-
-//     const email = data.get('email');
-//     const password = data.get('password');
-
-//     console.log({ email });
-//     console.log({ password });
-// }
-
-// const form = document.querySelector('form');
-// form.addEventListener('submit', handleSubmit);
-
-
 function sendJSON(){
 			
-    let result = document.querySelector('.result');
+    // let result = document.querySelector('.result');
     let password = document.querySelector('#password');
     let email = document.querySelector('#email');
     
     // Creating a XHR object
     let xhr = new XMLHttpRequest();
-    // let url = "submit.php";
 
     // open a connection
     xhr.open("POST", yourUrl, true);
@@ -38,34 +20,29 @@ function sendJSON(){
         if (xhr.readyState === 4 && xhr.status === 200) {
 
             // Print received data from server
-            result.innerHTML = this.responseText;
+            // result.innerHTML = this.responseText;
             let response = this.responseText;
             let responseParse = JSON.parse(response);
             
-            // console.log("token2: ", responseParse.token);
-            // console.log("toke: ", response);
-
+            //send toquen to login
             if(responseParse.token) {
 
                 let xhrget = new XMLHttpRequest();
 
                 xhrget.onreadystatechange = function () {
+                    //print private's page
                     console.log(xhrget.readyState);
-                    console.log(xhrget.status);                    
+                    console.log(xhrget.status);  
+                    // console.log(this.responseText);
+                    document.getElementsByTagName("body")[0].innerHTML = this.responseText;                 
                 }
 
                 xhrget.open("GET", "./welcome", true);
                 
-                let resSEND = JSON.stringify({ "token": responseParse.token });
                 xhrget.setRequestHeader("x-access-token", responseParse.token);
-                console.log(responseParse.token);
+                // console.log(responseParse.token);
                 xhrget.send();
-                return;
             }
-
-
-
-
         }
     };
 
