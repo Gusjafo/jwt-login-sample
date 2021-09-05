@@ -17,7 +17,7 @@ const auth = require("./middleware/auth");
 
 app.use("/static", express.static('./static/'));
 
-app.get("/", function(req, res){
+app.get("/", function (req, res) {
     res.sendFile(__dirname + "/static/index.html");
 });
 
@@ -81,7 +81,7 @@ app.post("/login", async (req, res) => {
 
         //validate if user exist in our database
         const user = await User.findOne({ email });
-        
+
 
         if (user && (await bcrypt.compare(password, user.password))) {
             // console.log(user);
@@ -96,12 +96,14 @@ app.post("/login", async (req, res) => {
             //save user token
             user.token = token;
 
+
             //to user
             res.status(200).json(user);
+            
         } else {
             res.status(400).send("Invalid credentials");
         }
-        
+
     } catch (err) {
         console.log(err);
     }
@@ -116,13 +118,13 @@ app.get("/welcome", auth, (req, res) => {
 // This should be the last route else any after it won't work
 app.use("*", (req, res) => {
     res.status(404).json({
-      success: "false",
-      message: "Page not found",
-      error: {
-        statusCode: 404,
-        message: "You reached a route that is not defined on this server",
-      },
+        success: "false",
+        message: "Page not found",
+        error: {
+            statusCode: 404,
+            message: "You reached a route that is not defined on this server",
+        },
     });
-  });
+});
 
 module.exports = app;

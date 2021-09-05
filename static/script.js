@@ -24,7 +24,7 @@ function sendJSON(){
             // result.innerHTML = this.responseText;
             let response = this.responseText;
             let responseParse = JSON.parse(response);
-            
+            // console.log("user: ", responseParse);
             //send toquen to login
             if(responseParse.token) {
 
@@ -49,7 +49,7 @@ function sendJSON(){
 
     // Converting JSON data to string
     var data = JSON.stringify({ "password": password.value, "email": email.value });
-    console.log(data);
+    // console.log(data);
 
     // Sending data with the request
     xhr.send(data);
