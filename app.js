@@ -111,6 +111,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/welcome", auth, (req, res) => {
+    console.log(req.res.user);
     res.set('Content-Type', 'text/html')
     res.status(200).send("<center><h1>Welcome 👁</h1></center>");
 });
