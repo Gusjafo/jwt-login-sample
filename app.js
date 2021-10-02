@@ -3,11 +3,11 @@ require("./config/database").connect();
 const express = require("express");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const axios = require('axios');
 
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Importing user context
 const User = require("./model/user");
@@ -18,16 +18,20 @@ const auth = require("./middleware/auth");
 app.use("/static", express.static('./static/'));
 
 app.get("/", function (req, res) {
-    res.sendFile(__dirname + "/static/index.html");
+    res.sendFile(__dirname + "/static/login.html");
+});
+
+app.get("/register", function (req, res) {
+    res.sendFile(__dirname + "/static/signup.html");
 });
 
 // Register
 app.post("/register", async (req, res) => {
 
     try {
-        const { first_name, last_name, email, password } = req.body;
-
-        if (!(email && password && first_name && last_name)) {
+        const { name, email, pass } = req.body;
+        console.log("body: " + name + email);
+        if (!(email && pass && name)) {
             res.status(400).send("All input is required");
         }
 
@@ -37,18 +41,17 @@ app.post("/register", async (req, res) => {
             return res.status(409).send("User already exist. Please login");
         }
 
-        encryptedPassword = await bcrypt.hash(password, 10);
+        encryptedPassword = await bcrypt.hash(pass, 10);
 
         const user = await User.create({
-            first_name,
-            last_name,
+            first_name: name,            
             email: email.toLowerCase(),
             password: encryptedPassword,
         });
 
         //create token
         const token = jwt.sign(
-            { user_id: user._id, email },
+            { user_id: user._id, user: name, email: email },
             process.env.TOKEN_KEY,
             {
                 expiresIn: "2h",
@@ -59,8 +62,12 @@ app.post("/register", async (req, res) => {
         user.token = token;
 
         //return new user
+        // res.status(201).json(token);
+        res
+        .status(200)
+        .cookie('token', token)
+        .redirect('/welcome');
 
-        res.status(201).json(user);
     } catch (err) {
         console.log(err);
     }
@@ -71,10 +78,10 @@ app.post("/login", async (req, res) => {
     // console.log("body", req.body);
 
     try {
-        const { email, password } = req.body;
+        const { email, pass} = req.body;
 
         //validate user input
-        if (!(email && password)) {
+        if (!(email && pass)) {
             res.status(400).send("All input is required");
             return;
         }
@@ -83,11 +90,11 @@ app.post("/login", async (req, res) => {
         const user = await User.findOne({ email });
 
 
-        if (user && (await bcrypt.compare(password, user.password))) {
+        if (user && (await bcrypt.compare(pass, user.password))) {
             // console.log(user);
             //create token
             const token = jwt.sign(
-                { user_id: user._id, email },
+                { user_id: user._id, user: user.first_name, email: email },
                 process.env.TOKEN_KEY,
                 {
                     expiresIn: "2h",
@@ -95,10 +102,15 @@ app.post("/login", async (req, res) => {
             );
             //save user token
             user.token = token;
+            
 
 
             //to user
-            res.status(200).json(user);
+            // res.status(200).json(user);
+            res
+                .status(200)
+                .cookie('token', token)
+                .redirect('/welcome');
             
         } else {
             res.status(400).send("Invalid credentials");
