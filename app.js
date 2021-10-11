@@ -117,7 +117,7 @@ app.post("/login", async (req, res) => {
 
 app.get("/welcome", auth, (req, res) => {
     res.set('Content-Type', 'text/html')
-    res.status(200).send("<center><h1>Welcome 👁</h1></center>");
+    res.status(200).send("<body><center><h1>Welcome 👁</h1></center></body>");
 });
 
 // This should be the last route else any after it won't work
