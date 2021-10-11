@@ -1,11 +1,23 @@
 # jwt-login-sample
 
-Ejemplo de registro y login usando jwt token en nodejs.
+Example of registration and login using jwt token in **Nodejs**.
 
-Como base de datos se utiliza MongoDB. En la misma se registran los usuarios "/register" y se concede o no acceso a los usuarios "/login". 
+**MongoDB** is used as the database to store Users
 
-Una vez autorizado (mail y contraseña correctos), se accede a la página protegida "/welcome".
+In it, the users `/register` are registered and access is granted or not to the users `/login`
 
-Solo implementado página de login. El registro se puede hacer utilizando postman.
+Once authorized (correct email and password), you access the protected page `/welcome`.
+
+## Libraries used
+
+`jsonwebtoken` to generate and verify **token**.
+
+`bcryptjs` to hash user password.
+
+##
+
+![login](https://user-images.githubusercontent.com/69098117/136807793-d9bb6dbd-952f-40f1-b688-583f88c5eb2f.png)
+
+
 
 
