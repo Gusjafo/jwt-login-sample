@@ -30,7 +30,6 @@ app.post("/register", async (req, res) => {
 
     try {
         const { name, email, pass } = req.body;
-        console.log("body: " + name + email);
         if (!(email && pass && name)) {
             res.status(400).send("All input is required");
         }
@@ -62,7 +61,6 @@ app.post("/register", async (req, res) => {
         user.token = token;
 
         //return new user
-        // res.status(201).json(token);
         res
         .status(200)
         .cookie('token', token)
@@ -75,7 +73,6 @@ app.post("/register", async (req, res) => {
 
 // Login
 app.post("/login", async (req, res) => {
-    // console.log("body", req.body);
 
     try {
         const { email, pass} = req.body;
@@ -91,7 +88,6 @@ app.post("/login", async (req, res) => {
 
 
         if (user && (await bcrypt.compare(pass, user.password))) {
-            // console.log(user);
             //create token
             const token = jwt.sign(
                 { user_id: user._id, user: user.first_name, email: email },
@@ -102,11 +98,8 @@ app.post("/login", async (req, res) => {
             );
             //save user token
             user.token = token;
-            
-
 
             //to user
-            // res.status(200).json(user);
             res
                 .status(200)
                 .cookie('token', token)
@@ -123,7 +116,6 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/welcome", auth, (req, res) => {
-    console.log(req.res.user);
     res.set('Content-Type', 'text/html')
     res.status(200).send("<center><h1>Welcome 👁</h1></center>");
 });
